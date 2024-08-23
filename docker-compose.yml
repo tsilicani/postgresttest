@@ -2,9 +2,6 @@ version: '3'
 
 services:
 
-  ################
-  # postgrest-db #
-  ################
   postgrest-db:
     container_name: postgrest-db
     image: postgres:13-alpine
@@ -20,13 +17,8 @@ services:
       # anything in initdb directory is created in the database
       # see "How to extend this image" section at https://hub.docker.com/r/_/postgres/
       - "./initdb:/docker-entrypoint-initdb.d"
-    networks:
-      - postgrest-backend
     restart: always
 
-  ##################
-  # postgrest-demo #
-  ##################
   postgrest-demo:
     container_name: postgrest-demo
     image: nginx:mainline-alpine
@@ -37,14 +29,12 @@ services:
       - "./html:/usr/share/nginx/html"
     restart: always
 
-  #############
-  # postgrest #
-  #############
   postgrest:
     container_name: postgrest
     image: postgrest/postgrest:latest
     ports:
       - "3000:3000"
+      - "3001:3001"
     # Available environment variables documented here:
     # https://postgrest.org/en/latest/configuration.html#environment-variables
     environment:
@@ -57,10 +47,6 @@ services:
       - PGRST_DB_ANON_ROLE=${DB_ANON_ROLE}
       # Overrides the base URL used within the OpenAPI self-documentation hosted at the API root path
       - PGRST_OPENAPI_SERVER_PROXY_URI=http://localhost:3000
-    networks:
-      - postgrest-backend
+      # Enable admin interface
+      - PGRST_ADMIN_SERVER_PORT=3001
     restart: always
-
-networks:
-  postgrest-backend:
-    driver: bridge

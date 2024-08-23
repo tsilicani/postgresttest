@@ -16,11 +16,3 @@ VALUES
     ('Charlie', 'Poodle', 2, 'Alice Johnson'),
     ('Daisy', 'Boxer', 4, 'Mike Brown'),
     ('Max', 'Beagle', 6, 'Sarah Connor');
-
-CREATE VIEW
-    pets_view AS
-SELECT
-    name,
-    owner
-FROM
-    public.pets
