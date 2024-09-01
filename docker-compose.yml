@@ -19,21 +19,10 @@ services:
       - "./initdb:/docker-entrypoint-initdb.d"
     restart: always
 
-  postgrest-demo:
-    container_name: postgrest-demo
-    image: nginx:mainline-alpine
-    ports:
-      - "80:80"
-    volumes:
-      # anything in html directory is hosted via nginx
-      - "./html:/usr/share/nginx/html"
-    restart: always
-
   postgrest:
     container_name: postgrest
     image: postgrest/postgrest:latest
     ports:
-      - "3000:3000"
       - "3001:3001"
     # Available environment variables documented here:
     # https://postgrest.org/en/latest/configuration.html#environment-variables
@@ -45,8 +34,5 @@ services:
       - PGRST_DB_SCHEMA=${DB_SCHEMA}
       # The database role to use when no client authentication is provided
       - PGRST_DB_ANON_ROLE=${DB_ANON_ROLE}
-      # Overrides the base URL used within the OpenAPI self-documentation hosted at the API root path
-      - PGRST_OPENAPI_SERVER_PROXY_URI=http://localhost:3000
-      # Enable admin interface
-      - PGRST_ADMIN_SERVER_PORT=3001
+      - PGRST_SERVER_PORT=3001
     restart: always
