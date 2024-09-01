@@ -1,9 +1,13 @@
 "use client";
 
-import { PostgrestClient } from "@supabase/postgrest-js";
 import { useEffect } from "react";
+import { PostgrestClient } from "@supabase/postgrest-js";
+import { Database } from "@/lib/__generated__/db-types";
+export type { Database } from "@/lib/__generated__/db-types";
+
+export type Client = PostgrestClient<Database>;
 const REST_URL = "http://localhost:3001";
-const postgrest = new PostgrestClient(REST_URL);
+const postgrest = new PostgrestClient<Database>(REST_URL);
 export default function Home() {
   useEffect(() => {
     postgrest

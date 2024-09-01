@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate-types": "npx supabase gen types --lang=typescript --db-url postgresql://postgres:postgres@localhost:5432/postgres > ./src/lib/__generated__/db-types.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -24,6 +25,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
     "postcss": "^8",
+    "supabase": "^1.191.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.4"
   }
