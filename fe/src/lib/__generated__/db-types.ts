@@ -124,6 +124,30 @@ export type Database = {
           },
         ]
       }
+      pets: {
+        Row: {
+          age: number
+          breed: string
+          id: number
+          name: string
+          owner: string
+        }
+        Insert: {
+          age: number
+          breed: string
+          id?: number
+          name: string
+          owner: string
+        }
+        Update: {
+          age?: number
+          breed?: string
+          id?: number
+          name?: string
+          owner?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
