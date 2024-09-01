@@ -20,6 +20,7 @@ async function fetchPets() {
   return await postgrest
     .from("pets")
     .select("*")
+    .gte("age", 5)
     .order("name", { ascending: true });
 }
 

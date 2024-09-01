@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { ReactQueryProvider } from "./react-query-provider";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { AppBar, Stack, Toolbar, Typography } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,14 +21,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReactQueryProvider>
-          <nav className="container mx-auto px-4 flex gap-4 p-4 text-lg font-bold text-indigo-600">
-            <Link href="/">Home</Link>
-            <Link href="/api-docs">Api Docs</Link>
-            <Link href="/crud">Crud</Link>
-          </nav>
-          <main className="container mx-auto px-4">{children}</main>
-        </ReactQueryProvider>
+        <AppRouterCacheProvider>
+          <ReactQueryProvider>
+            <AppBar position="static">
+              <Toolbar>
+                <Stack direction="row" gap={2}>
+                  <Typography variant="h6" component={Link} href="/">
+                    Home
+                  </Typography>
+                  <Typography variant="h6" component={Link} href="/api-docs">
+                    Api Docs
+                  </Typography>
+                  <Typography variant="h6" component={Link} href="/crud">
+                    Crud
+                  </Typography>
+                </Stack>
+              </Toolbar>
+            </AppBar>
+            <main className="container mx-auto px-4">{children}</main>
+          </ReactQueryProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
